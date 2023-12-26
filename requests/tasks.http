@@ -1,11 +1,22 @@
-### GET /api/tasks
+### Get all tasks
 GET http://localhost:3002/api/tasks 
 
-### POST /api/tasks
+### Add a task
 POST http://localhost:3002/api/tasks 
 Content-Type: application/json
 
 {
-  "title": "Done something",
+  "title": "Do something",
+  "completed": false
+}
+
+### Delete a task
+DELETE http://localhost:3002/api/tasks/oz4fwb733ungx2en82n8nk1q
+
+### Edit a task
+PUT http://localhost:3002/api/tasks/ogitm2c7qc0mi7c7k5qb7lt6
+Content-Type: application/json
+
+{
   "completed": true
 }

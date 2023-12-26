@@ -37,10 +37,6 @@ main > form {
   justify-content: space-between;
 }
 
-main > div:has(input[type="checkbox"]) {
-  justify-content: inherit;
-}
-
 input {
   font-family: inherit;
   font-size: 100%;

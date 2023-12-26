@@ -14,6 +14,8 @@ import { Task } from '../../../shared/Task';
 export class TodoComponent {
   taskRepo = remult.repo(Task);
   tasks: Task[] = [];
+  newTaskTitle = '';
+
   ngOnInit() {
     this.taskRepo
       .find({
@@ -22,5 +24,28 @@ export class TodoComponent {
         // where: { completed: false },
       })
       .then((items) => (this.tasks = items));
+  }
+
+  async addTask() {
+    try {
+      const newTask = await this.taskRepo.insert({ title: this.newTaskTitle });
+      this.tasks.push(newTask);
+      this.newTaskTitle = '';
+    } catch (error: any) {
+      alert(error.message);
+    }
+  }
+
+  async saveTask(task: Task) {
+    try {
+      await this.taskRepo.save(task);
+    } catch (error: any) {
+      alert(error.message);
+    }
+  }
+
+  async deleteTask(task: Task) {
+    await this.taskRepo.delete(task);
+    this.tasks = this.tasks.filter((t) => t !== task);
   }
 }

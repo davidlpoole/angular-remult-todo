@@ -1,7 +1,25 @@
 <h1>Todos</h1>
 <main>
-  <div class="todo" *ngFor="let task of tasks">
-    <input type="checkbox" [(ngModel)]="task.completed" />
-    {{ task.title }}
+  <form (submit)="addTask()">
+    <input
+      placeholder="What needs to be done?"
+      [(ngModel)]="newTaskTitle"
+      name="newTaskTitle"
+    />
+    <button type="submit">Add</button>
+  </form>
+  @for (task of tasks; track task.id) {
+  <!-- <div class="todo" *ngFor="let task of tasks"> -->
+  <div>
+    <input
+      type="checkbox"
+      [(ngModel)]="task.completed"
+      (change)="saveTask(task)"
+      [ngModelOptions]="{ standalone: true }"
+    />
+    <input [(ngModel)]="task.title" [ngModelOptions]="{ standalone: true }" />
+    <button (click)="saveTask(task)">Save</button>
+    <button (click)="deleteTask(task)">Delete</button>
   </div>
+  }
 </main>
