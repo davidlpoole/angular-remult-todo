@@ -7,10 +7,6 @@ export class Task {
   @Fields.cuid()
   id = '';
 
-  // @Fields.string({
-  //   validate: Validators.required,
-  // })
-  // title = '';
   @Fields.string<Task>({
     validate: (task) => {
       if (!task.title) throw 'Should not be empty';

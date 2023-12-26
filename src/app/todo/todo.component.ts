@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { remult } from 'remult';
 import { Task } from '../../../shared/Task';
+import { TasksController } from '../../../shared/TasksController';
 
 @Component({
   selector: 'app-todo',
@@ -11,7 +12,7 @@ import { Task } from '../../../shared/Task';
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css',
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent implements OnInit, OnDestroy {
   taskRepo = remult.repo(Task);
   tasks: Task[] = [];
   unsubscribe = () => {};
@@ -51,5 +52,9 @@ export class TodoComponent implements OnInit {
   async deleteTask(task: Task) {
     await this.taskRepo.delete(task);
     // this.tasks = this.tasks.filter((t) => t !== task);
+  }
+
+  async setAllCompleted(completed: boolean) {
+    await TasksController.setAllCompleted(completed);
   }
 }
