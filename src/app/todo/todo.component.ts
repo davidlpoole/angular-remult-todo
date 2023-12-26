@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { remult } from 'remult';
 import { Task } from '../../../shared/Task';
@@ -11,25 +11,29 @@ import { Task } from '../../../shared/Task';
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css',
 })
-export class TodoComponent {
+export class TodoComponent implements OnInit {
   taskRepo = remult.repo(Task);
   tasks: Task[] = [];
+  unsubscribe = () => {};
   newTaskTitle = '';
 
   ngOnInit() {
-    this.taskRepo
-      .find({
+    this.unsubscribe = this.taskRepo
+      .liveQuery({
         limit: 20,
         orderBy: { createdAt: 'asc' },
         // where: { completed: false },
       })
-      .then((items) => (this.tasks = items));
+      .subscribe((info) => (this.tasks = info.applyChanges(this.tasks)));
+  }
+  ngOnDestroy() {
+    this.unsubscribe();
   }
 
   async addTask() {
     try {
       const newTask = await this.taskRepo.insert({ title: this.newTaskTitle });
-      this.tasks.push(newTask);
+      // this.tasks.push(newTask);
       this.newTaskTitle = '';
     } catch (error: any) {
       alert(error.message);
@@ -46,6 +50,6 @@ export class TodoComponent {
 
   async deleteTask(task: Task) {
     await this.taskRepo.delete(task);
-    this.tasks = this.tasks.filter((t) => t !== task);
+    // this.tasks = this.tasks.filter((t) => t !== task);
   }
 }
