@@ -1,0 +1,10 @@
+### Sign in
+POST http://localhost:3002/api/signIn 
+Content-Type: application/json
+
+{
+  "username": "Steve"
+}
+
+### Sign out
+POST http://localhost:3002/api/signOut

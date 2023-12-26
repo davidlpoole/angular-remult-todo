@@ -1,13 +1,13 @@
 import { Component, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { TodoComponent } from './todo/todo.component';
 import { remult } from 'remult';
+import { AuthComponent } from './auth/auth.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, TodoComponent],
+  imports: [CommonModule, RouterOutlet, AuthComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

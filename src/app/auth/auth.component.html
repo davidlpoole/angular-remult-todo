@@ -1,0 +1,22 @@
+<!-- src/app/auth/auth.component.html -->
+
+<!-- <ng-container *ngIf="!remult.authenticated()"> -->
+@if (!remult.authenticated()) {
+<h1>todos</h1>
+<main>
+  <form (submit)="signIn()">
+    <input
+      [(ngModel)]="signInUsername"
+      placeholder="Enter username (try Eve or Steve)"
+      name="username"
+    />
+    <button>Sign in</button>
+  </form>
+</main>
+} @else {
+<header>
+  Hello {{ remult.user?.name }}
+  <button (click)="signOut()">Sign out</button>
+</header>
+<app-todo></app-todo>
+}
