@@ -1,0 +1,7 @@
+<h1>Todos</h1>
+<main>
+  <div class="todo" *ngFor="let task of tasks">
+    <input type="checkbox" [(ngModel)]="task.completed" />
+    {{ task.title }}
+  </div>
+</main>
