@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { remult } from 'remult';
-import { Task } from '../../../shared/Task';
-import { TasksController } from '../../../shared/TasksController';
+import { Task } from '../../shared/Task';
+import { TasksController } from '../../shared/TasksController';
 
 @Component({
   selector: 'app-todo',

@@ -6,7 +6,7 @@ import {
 } from '@angular/core/testing';
 
 import { TodoComponent } from './todo.component';
-import { Task } from '../../../shared/Task';
+import { Task } from '../../shared/Task';
 import { By } from '@angular/platform-browser';
 
 describe('TodoComponent', () => {
