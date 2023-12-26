@@ -15,6 +15,12 @@ export class TodoComponent {
   taskRepo = remult.repo(Task);
   tasks: Task[] = [];
   ngOnInit() {
-    this.taskRepo.find().then((items) => (this.tasks = items));
+    this.taskRepo
+      .find({
+        limit: 20,
+        orderBy: { createdAt: 'asc' },
+        // where: { completed: false },
+      })
+      .then((items) => (this.tasks = items));
   }
 }
