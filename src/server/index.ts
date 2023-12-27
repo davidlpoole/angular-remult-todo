@@ -2,6 +2,7 @@ import express from 'express';
 import helmet from 'helmet';
 import compression from 'compression';
 import path from 'path';
+import swaggerUi from 'swagger-ui-express';
 
 import session from 'cookie-session';
 import { auth } from './auth';
@@ -26,8 +27,12 @@ app.use(compression());
 app.use(auth);
 app.use(api);
 
-// console.log(__dirname);
-// /Users/user/dev-academy/angular-remult-todo/src/server
+// Use Swagger/OpenAPI
+const openApiDocument = api.openApiDoc({ title: 'angular-remult-todo' });
+app.get('/api/openApi.json', (req, res) => res.json(openApiDocument));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiDocument));
+
+// For production
 app.use(express.static(path.join(__dirname, '../angular-remult-todo/browser')));
 app.get('/*', (req, res) => {
   res.sendFile(
