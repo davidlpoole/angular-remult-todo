@@ -8,7 +8,7 @@
     />
     <button type="submit">Add</button>
   </form>
-  @for (task of tasks; track task.id) {
+  @for (task of tasks$ | async; track task.id) {
   <!-- <div class="todo" *ngFor="let task of tasks"> -->
   <div>
     <input

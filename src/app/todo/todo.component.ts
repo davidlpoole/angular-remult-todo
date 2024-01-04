@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { remult } from 'remult';
 import { Task } from '../../shared/Task';
 import { TasksController } from '../../shared/TasksController';
+import { fromLiveQuery } from '../from-live-query';
 
 @Component({
   selector: 'app-todo',
@@ -12,24 +13,15 @@ import { TasksController } from '../../shared/TasksController';
   templateUrl: './todo.component.html',
   styleUrl: './todo.component.css',
 })
-export class TodoComponent implements OnInit, OnDestroy {
+export class TodoComponent {
   taskRepo = remult.repo(Task);
-  tasks: Task[] = [];
-  unsubscribe = () => {};
+  tasks$ = fromLiveQuery(
+    this.taskRepo.liveQuery({
+      limit: 20,
+      orderBy: { createdAt: 'asc' },
+    })
+  );
   newTaskTitle = '';
-
-  ngOnInit() {
-    this.unsubscribe = this.taskRepo
-      .liveQuery({
-        limit: 20,
-        orderBy: { createdAt: 'asc' },
-        // where: { completed: false },
-      })
-      .subscribe((info) => (this.tasks = info.applyChanges(this.tasks)));
-  }
-  ngOnDestroy() {
-    this.unsubscribe();
-  }
 
   async addTask() {
     try {
